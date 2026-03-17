@@ -19,6 +19,7 @@ RUN tlmgr option repository "https://ftp.math.utah.edu/pub/tex/historic/systems/
         multirow \
         hyperref \
         cite \
+        preprint \
         # MCPL comment
         latexmk \
         kotex-utf \
