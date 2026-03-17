@@ -2,6 +2,8 @@ ARG PYTHON_VERSION
 ARG TEXLIVE_VERSION
 FROM jeesoo9595/latex-matplotlib:${PYTHON_VERSION}_${TEXLIVE_VERSION}
 
+ARG TEXLIVE_VERSION
+
 RUN tlmgr option repository "https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${TEXLIVE_VERSION}/tlnet-final" && \
     tlmgr update --self && \
     tlmgr install \
