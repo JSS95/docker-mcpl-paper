@@ -2,15 +2,28 @@
 
 Docker image containing common packages for MCPL manuscripts.
 
+Based on [jeesoo9595/latex-matplotlib](https://hub.docker.com/repository/docker/jeesoo9595/latex-matplotlib) with `inkscape` dependency.
+
 ## Tag rule
 
 Images are tagged by the following rule:
 
 ```
-[Python version]_[LaTeX version]
+[Python version]_[TeXLive version]
 ```
 
-For example, `3.13_2025` contains Python 3.13 and LaTex 2025.
+For example, `3.13_2025` contains Python 3.13 and TeXLive 2025.
+
+## Supported platforms
+
+Each image is built for the following platforms:
+
+| Platform | Host examples |
+|---|---|
+| `linux/amd64` | Linux (x86_64), Windows (Docker Desktop / WSL2), Intel Mac |
+| `linux/arm64` | Apple Silicon Mac (Docker Desktop), AWS Graviton, Azure Arm VMs |
+
+Docker automatically pulls the correct image for your architecture.
 
 ## Build arguments
 
