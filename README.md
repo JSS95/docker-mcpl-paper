@@ -14,6 +14,13 @@ Images are tagged by the following rule:
 
 For example, `3.13_2025` contains Python 3.13 and TeXLive 2025.
 
+### Supported versions
+
+| Dependency | Version |
+|---|---|
+| Python | `3.13`, `3.14` |
+| TeXLive | `2025` |
+
 ## Supported platforms
 
 Each image is built for the following platforms:
