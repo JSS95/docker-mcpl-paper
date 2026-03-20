@@ -3,6 +3,7 @@
 [![Docker Hub repository](https://img.shields.io/badge/Docker%20Hub-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/repository/docker/jeesoo9595/mcpl-paper)
 [![Image size](https://img.shields.io/docker/image-size/jeesoo9595/mcpl-paper
 )](https://hub.docker.com/repository/docker/jeesoo9595/mcpl-paper)
+[![GitHub repository](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/JSS95/docker-mcpl-paper)
 
 Docker image containing common packages for MCPL manuscripts.
 
