@@ -1,5 +1,9 @@
 # MCPL manuscript Docker environment
 
+[![Docker Hub repository](https://img.shields.io/badge/Docker%20Hub-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/repository/docker/jeesoo9595/mcpl-paper)
+[![Image size](https://img.shields.io/docker/image-size/jeesoo9595/mcpl-paper
+)](https://hub.docker.com/repository/docker/jeesoo9595/mcpl-paper)
+
 Docker image containing common packages for MCPL manuscripts.
 
 Based on [jeesoo9595/latex-matplotlib](https://hub.docker.com/repository/docker/jeesoo9595/latex-matplotlib) with `inkscape` dependency.
