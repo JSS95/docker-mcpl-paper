@@ -34,6 +34,7 @@ RUN tlmgr option repository "https://ftp.math.utah.edu/pub/tex/historic/systems/
 # Fonts
 RUN tlmgr install \
         collection-fontsrecommended \
+        newtx \
         sansmath \
         newtxsf
 
