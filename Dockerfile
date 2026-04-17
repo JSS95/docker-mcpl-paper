@@ -31,6 +31,7 @@ RUN tlmgr option repository "https://ftp.math.utah.edu/pub/tex/historic/systems/
 # Fonts
 RUN tlmgr install \
         collection-fontsrecommended \
+        sansmath \
         newtxsf
 
 LABEL repository="https://github.com/JSS95/docker-mcpl-paper" \
