@@ -4,6 +4,8 @@ FROM jeesoo9595/latex-matplotlib:${PYTHON_VERSION}_${TEXLIVE_VERSION}-inkscape
 
 ARG TEXLIVE_VERSION
 
+ENV LC_ALL=C
+
 RUN tlmgr option repository "https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${TEXLIVE_VERSION}/tlnet-final" && \
     tlmgr update --self && \
     tlmgr install \
