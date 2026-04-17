@@ -26,7 +26,9 @@ RUN tlmgr option repository "https://ftp.math.utah.edu/pub/tex/historic/systems/
         kotex-plain \
         nanumtype1 \
         todonotes \
-        setspace
+        setspace \
+        # Fonts
+        collection-fontsrecommended
 
 LABEL repository="https://github.com/JSS95/docker-mcpl-paper" \
       maintainer="Jisoo Song <jeesoo9595@snu.ac.kr>"
