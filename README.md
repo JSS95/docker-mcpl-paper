@@ -14,10 +14,10 @@ Based on [jeesoo9595/latex-matplotlib](https://hub.docker.com/repository/docker/
 Images are tagged by the following rule:
 
 ```
-[Python version]_[TeXLive version]
+[Python version]_[TeXLive version]-[CalVer]
 ```
 
-For example, `3.13_2025` contains Python 3.13 and TeXLive 2025.
+For example, `3.13_2025-26.04.17` contains Python 3.13 and TeXLive 2025, and released in 2026-04-17.
 
 ### Supported versions
 
