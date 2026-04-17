@@ -22,6 +22,7 @@ RUN tlmgr option repository "https://ftp.math.utah.edu/pub/tex/historic/systems/
         hyperref \
         cite \
         preprint \
+        kastrup \
         # MCPL comment
         latexmk \
         kotex-utf \
