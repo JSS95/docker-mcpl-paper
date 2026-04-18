@@ -23,6 +23,7 @@ RUN tlmgr option repository "https://ftp.math.utah.edu/pub/tex/historic/systems/
         cite \
         preprint \
         kastrup \
+        standalone \
         # MCPL comment
         latexmk \
         kotex-utf \
