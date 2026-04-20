@@ -19,6 +19,8 @@ Images are tagged by the following rule:
 
 For example, `3.13_2025-26.04.17` contains Python 3.13 and TeXLive 2025, and released in 2026-04-17.
 
+`latest` tag in Docker Hub includes the latest Python and TeXLive, with the latest CalVer release.
+
 ### Supported versions
 
 | Dependency | Version |

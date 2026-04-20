@@ -63,6 +63,12 @@ jobs:
           else
             FULL="jeesoo9595/mcpl-paper:${BASE_TAG}"
           fi
+
+          if [ "${{ matrix.python_version }}" = "${{ needs.resolve-matrix.outputs.latest_python_version }}" ] && \
+             [ "${{ matrix.texlive_version }}" = "${{ needs.resolve-matrix.outputs.latest_texlive_version }}" ]; then
+            FULL="${FULL},jeesoo9595/mcpl-paper:latest"
+          fi
+
           echo "tags=${FULL}" >> "$GITHUB_OUTPUT"
 
       - name: Log in to DockerHub
@@ -83,6 +89,12 @@ jobs:
             "https://mirror.nju.edu.cn/tex-historic/"
           )
 
+          IFS=',' read -ra TAG_ARRAY <<< "${{ steps.tags.outputs.tags }}"
+          TAG_ARGS=()
+          for T in "${TAG_ARRAY[@]}"; do
+            TAG_ARGS+=("-t" "$T")
+          done
+
           PUSH_FLAG=""
           if [[ "${{ github.ref }}" == refs/tags/* ]]; then
             PUSH_FLAG="--push"
@@ -95,7 +107,7 @@ jobs:
             if docker buildx build \
               --platform linux/amd64,linux/arm64 \
               $PUSH_FLAG \
-              -t "${{ steps.tags.outputs.tags }}" \
+              "${TAG_ARGS[@]}" \
               --build-arg "PYTHON_VERSION=${{ matrix.python_version }}" \
               --build-arg "TEXLIVE_VERSION=${{ matrix.texlive_version }}" \
               --build-arg "TEX_ARCHIVE=$MIRROR" \
