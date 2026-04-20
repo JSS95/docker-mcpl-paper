@@ -45,6 +45,7 @@ The Dockerfile accepts the following build arguments:
 |---|---|---|
 | `PYTHON_VERSION` | `latest` | Python image tag (e.g., `3.13`, `3.14`) |
 | `TEXLIVE_VERSION` | `latest` | TeXLive release year (e.g., `2024`, `2025`) |
+| `TEX_ARCHIVE` | `https://ftp.math.utah.edu/pub/tex/historic/` | TeX archive URL (see https://www.tug.org/historic/) |
 
 Build example:
 
