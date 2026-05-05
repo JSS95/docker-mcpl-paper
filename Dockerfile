@@ -33,7 +33,9 @@ RUN tlmgr option repository "$TLREPO" && \
         kotex-plain \
         nanumtype1 \
         todonotes \
-        setspace
+        setspace \
+        # Utilities
+        texcount
 
 # Fonts
 RUN tlmgr install \
