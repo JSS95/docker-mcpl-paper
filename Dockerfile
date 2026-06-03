@@ -35,7 +35,8 @@ RUN tlmgr option repository "$TLREPO" && \
         todonotes \
         setspace \
         # Utilities
-        texcount
+        texcount \
+        lineno
 
 # Fonts
 RUN tlmgr install \
