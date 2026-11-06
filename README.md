@@ -48,6 +48,8 @@ The Dockerfile accepts the following build arguments:
 | `PYTHON_VERSION` | `3.14` | Python image tag (e.g., `3.13`, `3.14`) |
 | `TEXLIVE_VERSION` | `2025` | TeXLive release year (e.g., `2024`, `2025`) |
 | `TEX_ARCHIVE` | `https://ftp.math.utah.edu/pub/tex/historic/` | TeX archive URL (see https://www.tug.org/historic/) |
+| `CFFLATEX_VERSION` | `0.1.0` | [cfflatex](https://github.com/JSS95/cfflatex) release version (installed from GitHub, not yet on CTAN) |
+| `CFFLATEX_SHA256` | `473369e2...` | SHA-256 checksum of the cfflatex release zip; must match `CFFLATEX_VERSION` |
 
 Build example:
 

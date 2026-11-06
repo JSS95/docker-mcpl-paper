@@ -36,7 +36,23 @@ RUN tlmgr option repository "$TLREPO" && \
         setspace \
         # Utilities
         texcount \
-        lineno
+        lineno \
+        # cfflatex dependencies
+        lt3luabridge \
+        lua-tinyyaml
+
+# cfflatex is not in the TeX Live repository, so install its GitHub release.
+ARG CFFLATEX_VERSION=0.1.0
+ARG CFFLATEX_SHA256=473369e299758b6ab7f7b7cb9b15dce8a2d53f61a650e8b43b401b7b2af0bb93
+RUN work="$(mktemp -d)" \
+    && curl --fail --silent --show-error --location --output "$work/cfflatex.zip" \
+        "https://github.com/JSS95/cfflatex/releases/download/v${CFFLATEX_VERSION}/cfflatex-${CFFLATEX_VERSION}.zip" \
+    && echo "${CFFLATEX_SHA256}  ${work}/cfflatex.zip" | sha256sum --check \
+    && texmf="$(kpsewhich -var-value TEXMFLOCAL)" \
+    && unzip -j "$work/cfflatex.zip" cfflatex/cfflatex.sty cfflatex/cfflatex.lua \
+        -d "$texmf/tex/latex/cfflatex" \
+    && mktexlsr "$texmf" \
+    && rm -rf "$work"
 
 # Fonts
 RUN tlmgr install \
