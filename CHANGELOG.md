@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) (`YY.0M.0D`).
 
+## [26.11.07]
+
+### Changed
+
+[cfflatex](https://github.com/JSS95/cfflatex) dependency is bumped to `0.2.0`.
+
 ## [26.11.06]
 
 ### Added

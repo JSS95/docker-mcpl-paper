@@ -42,8 +42,8 @@ RUN tlmgr option repository "$TLREPO" && \
         lua-tinyyaml
 
 # cfflatex is not in the TeX Live repository, so install its GitHub release.
-ARG CFFLATEX_VERSION=0.1.0
-ARG CFFLATEX_SHA256=473369e299758b6ab7f7b7cb9b15dce8a2d53f61a650e8b43b401b7b2af0bb93
+ARG CFFLATEX_VERSION=0.2.0
+ARG CFFLATEX_SHA256=d28ee4ae1aaa4a731d2f975f0ce5860f027083b01ca230da5c144fb06f83288f
 RUN work="$(mktemp -d)" \
     && curl --fail --silent --show-error --location --output "$work/cfflatex.zip" \
         "https://github.com/JSS95/cfflatex/releases/download/v${CFFLATEX_VERSION}/cfflatex-${CFFLATEX_VERSION}.zip" \
