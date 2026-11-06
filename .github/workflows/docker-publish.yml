@@ -17,6 +17,18 @@ jobs:
         run: |
           python3 .github/scripts/validate_readme_versions.py versions.json README.md
 
+  validate-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate release notes in CHANGELOG
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          python3 .github/scripts/release_notes.py CHANGELOG.md \
+            --tag "${{ github.ref_name }}" --check
+
   resolve-matrix:
     runs-on: ubuntu-latest
     outputs:
@@ -36,6 +48,7 @@ jobs:
   build-and-push:
     needs:
       - validate-readme-versions
+      - validate-changelog
       - resolve-matrix
     runs-on: ubuntu-latest
     strategy:
@@ -124,3 +137,32 @@ jobs:
 
           echo "::error::All TeX Live mirrors failed!"
           exit 1
+
+  release:
+    needs: build-and-push
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract release notes from CHANGELOG
+        run: |
+          python3 .github/scripts/release_notes.py CHANGELOG.md \
+            --tag "${{ github.ref_name }}" > "$RUNNER_TEMP/release-notes.md"
+
+      - name: Create or update GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" --notes-file "$RUNNER_TEMP/release-notes.md"
+            echo "Updated release $TAG from CHANGELOG.md"
+          else
+            gh release create "$TAG" --verify-tag --title "$TAG" \
+              --notes-file "$RUNNER_TEMP/release-notes.md"
+            echo "Created release $TAG from CHANGELOG.md"
+          fi
