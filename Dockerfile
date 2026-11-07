@@ -41,6 +41,13 @@ RUN tlmgr option repository "$TLREPO" && \
         lt3luabridge \
         lua-tinyyaml
 
+# Fonts
+RUN tlmgr install \
+        collection-fontsrecommended \
+        newtx \
+        sansmath \
+        newtxsf
+
 # cfflatex is not in the TeX Live repository, so install its GitHub release.
 ARG CFFLATEX_VERSION=0.2.0
 ARG CFFLATEX_SHA256=d28ee4ae1aaa4a731d2f975f0ce5860f027083b01ca230da5c144fb06f83288f
@@ -55,13 +62,6 @@ RUN work="$(mktemp -d)" \
     && unzip -o -q "$work/cfflatex.tds.zip" -d "$texmf" \
     && mktexlsr "$texmf" \
     && rm -rf "$work"
-
-# Fonts
-RUN tlmgr install \
-        collection-fontsrecommended \
-        newtx \
-        sansmath \
-        newtxsf
 
 LABEL repository="https://github.com/JSS95/docker-mcpl-paper" \
       maintainer="Jisoo Song <jeesoo9595@snu.ac.kr>"
