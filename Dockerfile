@@ -49,8 +49,10 @@ RUN work="$(mktemp -d)" \
         "https://github.com/JSS95/cfflatex/releases/download/v${CFFLATEX_VERSION}/cfflatex-${CFFLATEX_VERSION}.zip" \
     && echo "${CFFLATEX_SHA256}  ${work}/cfflatex.zip" | sha256sum --check \
     && texmf="$(kpsewhich -var-value TEXMFLOCAL)" \
-    && unzip -j "$work/cfflatex.zip" cfflatex/cfflatex.sty cfflatex/cfflatex.lua \
-        -d "$texmf/tex/latex/cfflatex" \
+    # From 0.2.0, cfflatex also needs its author styles and Lua modules, which
+    # its TDS archive installs with the package.
+    && unzip -p "$work/cfflatex.zip" cfflatex.tds.zip > "$work/cfflatex.tds.zip" \
+    && unzip -o -q "$work/cfflatex.tds.zip" -d "$texmf" \
     && mktexlsr "$texmf" \
     && rm -rf "$work"
 
