@@ -37,7 +37,7 @@ RUN tlmgr option repository "$TLREPO" && \
         # Utilities
         texcount \
         lineno \
-        # cfflatex dependencies
+        # import-citation-cff dependencies
         lt3luabridge \
         lua-tinyyaml
 
@@ -48,20 +48,29 @@ RUN tlmgr install \
         sansmath \
         newtxsf
 
-# cfflatex is not in the TeX Live repository, so install its GitHub release.
-ARG CFFLATEX_VERSION=0.2.0
-ARG CFFLATEX_SHA256=d28ee4ae1aaa4a731d2f975f0ce5860f027083b01ca230da5c144fb06f83288f
-RUN work="$(mktemp -d)" \
-    && curl --fail --silent --show-error --location --output "$work/cfflatex.zip" \
-        "https://github.com/JSS95/cfflatex/releases/download/v${CFFLATEX_VERSION}/cfflatex-${CFFLATEX_VERSION}.zip" \
-    && echo "${CFFLATEX_SHA256}  ${work}/cfflatex.zip" | sha256sum --check \
-    && texmf="$(kpsewhich -var-value TEXMFLOCAL)" \
-    # From 0.2.0, cfflatex also needs its author styles and Lua modules, which
-    # its TDS archive installs with the package.
-    && unzip -p "$work/cfflatex.zip" cfflatex.tds.zip > "$work/cfflatex.tds.zip" \
-    && unzip -o -q "$work/cfflatex.tds.zip" -d "$texmf" \
-    && mktexlsr "$texmf" \
-    && rm -rf "$work"
+# import-citation-cff (formerly cfflatex) is on CTAN since 2026, so TeX Live
+# 2026 and later install it with tlmgr. Older TeX Live releases build the
+# pinned GitHub source release with l3build instead.
+# IMPORT_CITATION_CFF_VERSION and IMPORT_CITATION_CFF_SHA256 apply only then.
+ARG IMPORT_CITATION_CFF_VERSION=0.4.0
+ARG IMPORT_CITATION_CFF_SHA256=73ad64950992f4a50502ddea4f557133ca1227a1bdef4d81a3b1ac429e5212fd
+RUN if [ "$TEXLIVE_VERSION" -ge 2026 ]; then \
+        tlmgr install import-citation-cff; \
+    else \
+        tlmgr install l3build \
+        && work="$(mktemp -d)" \
+        && curl --fail --silent --show-error --location --output "$work/source.tar.gz" \
+            "https://github.com/JSS95/cfflatex/archive/refs/tags/v${IMPORT_CITATION_CFF_VERSION}.tar.gz" \
+        && echo "${IMPORT_CITATION_CFF_SHA256}  ${work}/source.tar.gz" | sha256sum --check \
+        && tar -xzf "$work/source.tar.gz" -C "$work" --strip-components=1 \
+        && texmf="$(kpsewhich -var-value TEXMFLOCAL)" \
+        # l3build links the cfflatexpand command into CFFLATEXPAND_BINDIR.
+        # --full is not used, because it typesets the manual first.
+        && (cd "$work" && CFFLATEXPAND_BINDIR=/usr/local/bin \
+            l3build install --texmfhome "$texmf") \
+        && mktexlsr "$texmf" \
+        && rm -rf "$work"; \
+    fi
 
 LABEL repository="https://github.com/JSS95/docker-mcpl-paper" \
       maintainer="Jisoo Song <jeesoo9595@snu.ac.kr>"
